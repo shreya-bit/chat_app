@@ -39,7 +39,7 @@ class ChatScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: const <Widget>[
             Expanded(child: Messages(),),
-            Expanded(child: NewMessage())
+            Expanded(flex: 0, child: NewMessage())
           ],
         )
       ) ,
