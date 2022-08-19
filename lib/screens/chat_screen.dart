@@ -36,6 +36,7 @@ class ChatScreen extends StatelessWidget {
       body:Container(
        // height: MediaQuery.of(context).size.height-300,
         child:Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: const <Widget>[
             Expanded(child: Messages(),),
             Expanded(child: NewMessage())
