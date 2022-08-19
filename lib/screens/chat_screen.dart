@@ -1,32 +1,46 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shrey_chat/widgets/chat/messages.dart';
+import 'package:shrey_chat/widgets/chat/new_msg.dart';
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('chats/TVZ2brPUZ4BlKL1KstJx/messages/')
-          .snapshots(),
-          builder: (context, streamSnapshot){
-            return ListView.builder(
-              itemBuilder:(context, index)=>
-              Container(
-                padding:const EdgeInsets.all(10),
-                child: const Text("works"),
-              ),
-              itemCount: streamSnapshot.data?.documents.length, );},),
-
-      floatingActionButton:FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: (){
-
-
+      appBar: AppBar(title: Text('ShreyChat'),
+      actions: [
+        DropdownButton(icon: Icon(Icons.more_vert,
+        color: Theme.of(context).primaryIconTheme.color,),
+        items:[
+          DropdownMenuItem(child: Container(
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.exit_to_app),
+                SizedBox(width: 8,),
+                Text('Logout'),
+              ],
+            )
+          ),
+          value:'logout'),
+        ],
+        onChanged: (itemIdentifier){
+          if(itemIdentifier=='logout'){
+            FirebaseAuth.instance.signOut();
+          }
         },
+        )
+      ],),
+
+      body:Container(
+       // height: MediaQuery.of(context).size.height-300,
+        child:Column(
+          children: const <Widget>[
+            Expanded(child: Messages(),),
+            Expanded(child: NewMessage())
+          ],
+        )
       ) ,
     );
   }
