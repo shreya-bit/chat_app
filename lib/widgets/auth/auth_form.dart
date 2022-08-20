@@ -33,7 +33,7 @@ class _AuthFormState extends State<AuthForm> {
        widget.submitFn(
          _userEmail,  _userPassword, _userName,  _isLogin, context
        );
-      //TODO use these values to send our auth request
+      // use these values to send our auth request
     }
   }
 

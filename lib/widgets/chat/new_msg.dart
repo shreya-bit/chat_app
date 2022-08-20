@@ -49,7 +49,7 @@ class _NewMessageState extends State<NewMessage> {
                   .of(context)
                   .primaryColor,
               icon: Icon(Icons.send, size: 30,),
-              onPressed:_enteredMsg.isEmpty ? null : _sendMessage,)
+              onPressed: _sendMessage,)
           ],
         )
     );
