@@ -6,11 +6,14 @@ import 'package:shrey_chat/widgets/chat/message_bubble.dart';
 class Messages extends StatelessWidget {
   const Messages({Key? key}) : super(key: key);
 
+  authInitialiser(){
+    var forAuth= FirebaseAuth.instance.currentUser!;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final forAuth = FirebaseAuth.instance.currentUser;
     return FutureBuilder(
-      future: FirebaseAuth.instance.currentUser,
+      future: authInitialiser(),
       builder: (context, futureSnapshot) {
         if (futureSnapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -31,13 +34,15 @@ class Messages extends StatelessWidget {
               }
               final chatDocs = chatSnapShot.data?.docs;
 
+
               return ListView.builder(
                   reverse: true,
                   itemCount: chatDocs?.length,
                   itemBuilder: (ctx, index) => MessageBubble(
                         chatDocs![index]['text'],
-                        chatDocs[index]['userId'] == futureSnapshot.data!.uid,
-                      ));
+                        chatDocs[index]['userId'] == FirebaseAuth.instance.currentUser?.uid,
+                        chatDocs[index]['username'],
+                  ));
             });
       },
     );
